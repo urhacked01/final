@@ -52,7 +52,11 @@ const nextConfig = {
     optimizePackageImports: ['@headlessui/react', 'lucide-react'],
   },
   output: 'standalone',
-  headers: async () => {
+  async headers() {
+    const metadataBase = process.env.NEXT_PUBLIC_SITE_URL 
+      ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+      : new URL('https://dhanlaxmihero.com');
+    
     return [
       {
         source: '/:path*',

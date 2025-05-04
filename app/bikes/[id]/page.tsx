@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import { Bike as BikeType } from '@/app/types/bike';
 import { allBikes } from '@/app/data/bikes';
-import { supabase } from '@/lib/supabase';
 
 export default function BikeDetail() {
   const params = useParams();
@@ -29,51 +28,13 @@ export default function BikeDetail() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBike = async () => {
-      try {
-        // Try to get bike from Supabase
-        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-          const { data, error } = await supabase
-            .from('bikes')
-            .select('*')
-            .eq('id', params.id)
-            .single();
-
-          if (error) {
-            console.error('Supabase error:', error);
-            // Fall back to static data
-            fallbackToStaticData();
-            return;
-          }
-          
-          if (data) {
-            setBike(data);
-            setSelectedImage(data.images.main);
-            setLoading(false);
-            return;
-          }
-        }
-        
-        // If Supabase fetch fails or is not configured, fall back to static data
-        fallbackToStaticData();
-      } catch (error) {
-        console.error('Error fetching bike:', error);
-        // Fall back to static data
-        fallbackToStaticData();
-      }
-    };
-    
-    const fallbackToStaticData = () => {
-      // Find the bike by ID in our static data
+    // Find the bike by ID in our static data
     const foundBike = allBikes.find(b => b.id === params.id);
     if (foundBike) {
       setBike(foundBike);
       setSelectedImage(foundBike.images.main);
     }
-      setLoading(false);
-    };
-
-    fetchBike();
+    setLoading(false);
   }, [params.id]);
 
   // Image fallback handling

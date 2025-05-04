@@ -4,8 +4,6 @@ import './globals.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ChatSupport from './components/ChatSupport';
-import { LanguageProvider } from './context/LanguageContext';
-import GoogleTranslate from './components/GoogleTranslate';
 
 // Optimize font loading
 const inter = Inter({
@@ -38,6 +36,7 @@ const jsonLd = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://dhanlaxmihero.com'),
   title: 'Dhanlaxmi Hero - Premium Two-Wheeler Dealership',
   description:
     'Your trusted partner for Hero, Harley-Davidson, and Vida electric vehicles. Explore our premium collection of bikes and scooters.',
@@ -55,7 +54,7 @@ export const metadata: Metadata = {
     siteName: 'Dhanlaxmi Hero',
     images: [
       {
-        url: 'https://dhanlaxmihero.com/og-image.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Dhanlaxmi Hero Dealership',
@@ -67,7 +66,7 @@ export const metadata: Metadata = {
     title: 'Dhanlaxmi Hero - Premium Two-Wheeler Dealership',
     description:
       'Explore our premium collection of Hero, Harley-Davidson and Vida electric vehicles.',
-    images: ['https://dhanlaxmihero.com/twitter-image.jpg'],
+    images: ['/twitter-image.jpg'],
   },
 };
 
@@ -87,8 +86,6 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <link rel="preconnect" href="https://i.imgur.com" />
         <link rel="preconnect" href="https://i.ibb.co" />
-        <link rel="preconnect" href="https://translate.googleapis.com" />
-        <link rel="preconnect" href="https://translate.google.com" />
         {/* Add structured data */}
         <script
           type="application/ld+json"
@@ -96,13 +93,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-gray-50 text-gray-900">
-        <GoogleTranslate />
-        <LanguageProvider>
-          <Navbar />
-          <main className="pt-[72px] min-h-screen">{children}</main>
-          <Footer />
-          <ChatSupport />
-        </LanguageProvider>
+        <Navbar />
+        <main className="pt-[72px] min-h-screen">{children}</main>
+        <Footer />
+        <ChatSupport />
       </body>
     </html>
   );

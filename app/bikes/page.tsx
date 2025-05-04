@@ -19,10 +19,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bike as BikeType } from '@/app/types/bike';
 import { allBikes } from '@/app/data/bikes/index';
-import { useLanguage } from '@/app/context/LanguageContext';
 
 export default function BikesPage() {
-  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -156,13 +154,13 @@ export default function BikesPage() {
           />
           {bike.isNewArrival && (
             <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold">
-              {t('nav.new_arrivals')}
+              New Arrival
             </div>
           )}
           {bike.isElectric && (
             <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold flex items-center">
               <Zap className="w-3 h-3 mr-1" />
-              {t('bikes.filter.vida')}
+              Electric
             </div>
           )}
         </div>
@@ -180,18 +178,18 @@ export default function BikesPage() {
               <IndianRupee className="h-3 w-3 mr-1" />
               {bike.price.toLocaleString()}
               {bike.isElectric && bike.subsidyPrice && (
-                <span className="text-xs text-green-600 ml-1">{t('bikes.subsidy_applied')}</span>
+                <span className="text-xs text-green-600 ml-1">Subsidy Applied</span>
               )}
             </div>
             <div className="text-sm text-red-600 flex items-center">
-              {t('bikes.view_details')}
+              View Details
               <ChevronRight className="h-4 w-4 ml-1" />
             </div>
           </div>
         </div>
       </div>
     </Link>
-  ), [getBikeType, t]);
+  ), [getBikeType]);
 
   // Render bike cards
   const BikesGrid = ({ bikes }: { bikes: BikeType[] }) => (
@@ -207,7 +205,7 @@ export default function BikesPage() {
       {/* Hero Section */}
       <section className="bg-red-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">{t('bikes.title')}</h1>
+          <h1 className="text-4xl font-bold mb-4">Explore Our Bikes</h1>
           <p className="text-lg max-w-2xl mx-auto">
             Find the perfect bike that matches your style and needs from our comprehensive range of
             Hero motorcycles, scooters, and electric vehicles.
@@ -227,7 +225,7 @@ export default function BikesPage() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('bikes.filter.all')} ({allBikes.length})
+              All ({allBikes.length})
             </button>
             <button
               onClick={() => setActiveTab('petrol')}
@@ -238,7 +236,7 @@ export default function BikesPage() {
               }`}
             >
               <Fuel className="mr-2 h-4 w-4" />
-              {t('bikes.filter.hero')} ({petrolBikes.length})
+              Hero ({petrolBikes.length})
             </button>
             <button
               onClick={() => setActiveTab('electric')}
@@ -249,7 +247,7 @@ export default function BikesPage() {
               }`}
             >
               <Zap className="mr-2 h-4 w-4" />
-              {t('bikes.filter.vida')} ({electricBikes.length})
+              Vida ({electricBikes.length})
             </button>
           </div>
         </div>
@@ -262,26 +260,26 @@ export default function BikesPage() {
           <div className="w-full md:w-64">
             <div className="bg-white rounded-lg shadow-md p-4">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold">{t('bikes.filters')}</h3>
+                <h3 className="font-semibold">Filters</h3>
                 <button
                   onClick={resetFilters}
                   className="text-sm text-red-600 hover:text-red-700"
                 >
-                  {t('bikes.reset_filters')}
+                  Reset Filters
                 </button>
               </div>
 
               {/* Search */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('bikes.search')}
+                  Search
                 </label>
                 <div className="relative">
                   <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder={t('bikes.search_placeholder')}
+                    placeholder="Search bikes"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                   />
                   <Search className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
@@ -291,7 +289,7 @@ export default function BikesPage() {
               {/* Brand Filter */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('bikes.brand')}
+                  Brand
                 </label>
                 <div className="space-y-2">
                   {allBrands.map((brand) => (
@@ -311,13 +309,13 @@ export default function BikesPage() {
                       <span className="ml-2 text-sm text-gray-700">{brand}</span>
                     </label>
                   ))}
-                    </div>
-                      </div>
+                </div>
+              </div>
 
               {/* Category Filter */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('bikes.category')}
+                  Category
                 </label>
                 <div className="space-y-2">
                   {allCategories.map((category) => (
@@ -338,14 +336,14 @@ export default function BikesPage() {
                       />
                       <span className="ml-2 text-sm text-gray-700">{category}</span>
                     </label>
-                      ))}
-                    </div>
-                  </div>
+                  ))}
+                </div>
+              </div>
 
               {/* Price Range Filter */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('bikes.price_range')}
+                  Price Range
                 </label>
                 <div className="flex items-center space-x-2">
                   <input
@@ -356,7 +354,7 @@ export default function BikesPage() {
                     }
                     className="w-24 px-2 py-1 border border-gray-300 rounded-md text-sm"
                   />
-                  <span className="text-gray-500">{t('bikes.to')}</span>
+                  <span className="text-gray-500">to</span>
                   <input
                     type="number"
                     value={priceRange[1]}
@@ -371,18 +369,18 @@ export default function BikesPage() {
               {/* Sort Options */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('bikes.sort_by')}
+                  Sort By
                 </label>
                 <select
                   value={currentSort}
                   onChange={(e) => setCurrentSort(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
-                  <option value="none">{t('bikes.sort.default')}</option>
-                  <option value="price-low">{t('bikes.sort.price_low')}</option>
-                  <option value="price-high">{t('bikes.sort.price_high')}</option>
-                  <option value="rating">{t('bikes.sort.rating')}</option>
-                  <option value="newest">{t('bikes.sort.newest')}</option>
+                  <option value="none">Default</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="rating">Rating</option>
+                  <option value="newest">Newest</option>
                 </select>
               </div>
             </div>

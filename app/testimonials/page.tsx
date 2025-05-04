@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Star, MapPin, Filter, Check } from 'lucide-react';
 import { formatDate } from '../utils/dateFormatter';
-import { withTranslateCompatibility, useGoogleTranslateEffect } from '../utils/translateHelper';
 
 // Sample testimonial data
 const TESTIMONIALS = [
@@ -705,9 +704,6 @@ function TestimonialsPageContent() {
     bikeModel: 'all',
   });
 
-  // Use the Google Translate effect to add helper classes
-  useGoogleTranslateEffect();
-
   const handleFilterChange = (filterType: string, value: string | number) => {
     setFilters(prev => ({
       ...prev,
@@ -854,6 +850,6 @@ function TestimonialsPageContent() {
   );
 }
 
-// Wrap the component with our translate compatibility wrapper
-const TestimonialsPage = withTranslateCompatibility(TestimonialsPageContent);
-export default TestimonialsPage;
+export default function TestimonialsPage() {
+  return <TestimonialsPageContent />;
+}

@@ -4,21 +4,18 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
-import CustomTranslateWidget from './CustomTranslateWidget';
-import { useLanguage } from '../context/LanguageContext';
 
 const navigation = [
-  { key: 'nav.home', href: '/' },
-  { key: 'nav.bikes', href: '/bikes' },
-  { key: 'nav.showrooms', href: '/showrooms' },
-  { key: 'nav.about', href: '/about' },
-  { key: 'nav.contact', href: '/contact' },
-  { key: 'nav.testimonials', href: '/testimonials' },
-  { key: 'nav.finance', href: '/finance-calculator' },
+  { name: 'Home', href: '/' },
+  { name: 'Bikes', href: '/bikes' },
+  { name: 'Showrooms', href: '/showrooms' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'Testimonials', href: '/testimonials' },
+  { name: 'Finance', href: '/finance-calculator' },
 ];
 
 export default function Navbar() {
-  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -74,18 +71,13 @@ export default function Navbar() {
             <div className="hidden lg:flex lg:gap-x-8 items-center">
               {navigation.map(item => (
                 <Link
-                  key={item.key}
+                  key={item.name}
                   href={item.href}
                   className="text-gray-700 hover:text-primary transition-colors font-medium text-sm"
                 >
-                  {t(item.key)}
+                  {item.name}
                 </Link>
               ))}
-            </div>
-
-            {/* Desktop CTA buttons and Language Switcher */}
-            <div className="hidden lg:flex lg:items-center gap-4">
-              <CustomTranslateWidget />
             </div>
           </nav>
         </div>
@@ -110,9 +102,6 @@ export default function Navbar() {
           <div className="z-50">
             <Logo />
           </div>
-          <div>
-            <CustomTranslateWidget />
-          </div>
         </div>
 
         <div className="mt-6 flow-root">
@@ -120,12 +109,12 @@ export default function Navbar() {
             <div className="space-y-2 py-6">
               {navigation.map(item => (
                 <Link
-                  key={item.key}
+                  key={item.name}
                   href={item.href}
                   className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t(item.key)}
+                  {item.name}
                 </Link>
               ))}
             </div>

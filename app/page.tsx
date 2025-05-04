@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Star, MapPin, Calendar, Bike, ShieldCheck } from 'lucide-react';
-import { useLanguage } from './context/LanguageContext';
 
 // Sample featured bikes
 const FEATURED_BIKES = [
@@ -104,7 +103,6 @@ const BIKE_IMAGES = [
 ];
 
 export default function Home() {
-  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'hero' | 'harley'>('hero');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -159,12 +157,12 @@ export default function Home() {
             )}
           </div>
           <Link href={`/bikes/${bike.id}`} className="btn-primary">
-            {t('bikes.view_details')}
+            View Details
           </Link>
         </div>
       </div>
     </div>
-  ), [t]);
+  ), []);
 
   return (
     <div>
@@ -175,14 +173,14 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
               <div className="text-center md:text-left">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-                  {t('home.hero.title')}
+                  Your Premium Bike Dealer in Aurangabad
                 </h1>
                 <p className="text-gray-300 text-base sm:text-lg mb-6 sm:mb-8">
-                  {t('home.hero.subtitle')}
+                  Explore our premium collection of Hero, Harley-Davidson, and Vida electric bikes. Find your perfect ride today.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
                   <Link href="/bikes" className="btn-primary w-full sm:w-auto text-center">
-                    {t('home.hero.cta')}
+                    Explore Bikes
                   </Link>
                 </div>
               </div>
@@ -205,9 +203,9 @@ export default function Home() {
       <section className="py-12 sm:py-16 bg-gray-50">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('home.featured_bikes')}</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Featured Bikes</h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              {t('home.featured_bikes.subtitle')}
+              Explore our premium collection of Hero, Harley-Davidson, and Vida electric bikes.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -217,7 +215,7 @@ export default function Home() {
           </div>
           <div className="mt-8 text-center">
             <Link href="/bikes" className="btn-primary inline-flex items-center">
-              {t('bikes.filter.all')}
+              View All Bikes
               <ArrowRight className="h-4 w-4 ml-2" />
             </Link>
           </div>
@@ -228,11 +226,9 @@ export default function Home() {
       <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
-              {t('home.why_choose')}
-            </h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Why Choose Us</h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-3xl mx-auto px-4">
-              {t('home.why_choose.subtitle')}
+              Discover why Dhanlaxmi Motor is the best choice for your bike needs.
             </p>
           </div>
 
@@ -241,27 +237,27 @@ export default function Home() {
               <div className="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center text-white mx-auto mb-4">
                 <Bike className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-bold mb-2">{t('home.premium_bikes')}</h3>
+              <h3 className="text-xl font-bold mb-2">Premium Bikes</h3>
               <p className="text-gray-600">
-                {t('home.premium_bikes.description')}
+                We offer a wide range of premium bikes from Hero, Harley-Davidson, and Vida.
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center text-white mx-auto mb-4">
                 <Star className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-bold mb-2">{t('home.expert_service')}</h3>
+              <h3 className="text-xl font-bold mb-2">Expert Service</h3>
               <p className="text-gray-600">
-                {t('home.expert_service.description')}
+                Our team of experts is here to help you find the perfect bike.
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center text-white mx-auto mb-4">
                 <MapPin className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-bold mb-2">{t('home.multiple_locations')}</h3>
+              <h3 className="text-xl font-bold mb-2">Multiple Locations</h3>
               <p className="text-gray-600">
-                {t('home.multiple_locations.description')}
+                Visit our showroom in Aurangabad or any of our other locations.
               </p>
             </div>
           </div>
@@ -272,9 +268,9 @@ export default function Home() {
       <section className="py-12 sm:py-16 bg-gray-50">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('home.testimonials')}</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Testimonials</h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              {t('home.testimonials.subtitle')}
+              What our customers say about us.
             </p>
           </div>
 
@@ -303,9 +299,9 @@ export default function Home() {
       <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('home.showrooms')}</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Showrooms</h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4">
-              {t('home.showrooms.subtitle')}
+              Visit our showroom in Aurangabad or any of our other locations.
             </p>
           </div>
 
@@ -324,8 +320,8 @@ export default function Home() {
                       {brand}
                     </span>
                   ))}
-            </div>
-          </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>

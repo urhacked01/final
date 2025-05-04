@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Phone, Mail, Instagram } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 
 const locations = [
   {
@@ -37,28 +36,26 @@ const locations = [
 
 const navigation = {
   main: [
-    { name: 'nav.home', href: '/' },
-    { name: 'nav.bikes', href: '/bikes' },
-    { name: 'nav.showrooms', href: '/showrooms' },
-    { name: 'nav.about', href: '/about' },
-    { name: 'nav.contact', href: '/contact' },
-    { name: 'nav.testimonials', href: '/testimonials' },
+    { name: 'Home', href: '/' },
+    { name: 'Bikes', href: '/bikes' },
+    { name: 'Showrooms', href: '/showrooms' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Testimonials', href: '/testimonials' },
   ],
   bikes: [
-    { name: 'nav.hero_bikes', href: '/bikes?brand=hero' },
-    { name: 'nav.harley_davidson', href: '/bikes?brand=harley' },
-    { name: 'nav.new_arrivals', href: '/bikes?new=true' },
-    { name: 'nav.popular_models', href: '/bikes?popular=true' },
+    { name: 'Hero Bikes', href: '/bikes?brand=hero' },
+    { name: 'Harley Davidson', href: '/bikes?brand=harley' },
+    { name: 'New Arrivals', href: '/bikes?new=true' },
+    { name: 'Popular Models', href: '/bikes?popular=true' },
   ],
   legal: [
-    { name: 'nav.privacy_policy', href: '/privacy-policy' },
-    { name: 'nav.terms_of_service', href: '/terms-of-service' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
   ],
 };
 
 export default function Footer() {
-  const { t } = useLanguage();
-
   return (
     <footer className="bg-[var(--secondary)] text-white" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -70,7 +67,7 @@ export default function Footer() {
             <div>
               <span className="text-3xl font-bold text-white">Dhanlaxmi Motor</span>
             </div>
-            <p className="text-base text-gray-300">{t('footer.description')}</p>
+            <p className="text-base text-gray-300">Your trusted dealer for Hero and Harley Davidson motorcycles with multiple premium showroom locations.</p>
             <div className="flex space-x-6">
               <a
                 href="https://www.instagram.com/dhanlaxmiautomobiles/?hl=en"
@@ -84,24 +81,24 @@ export default function Footer() {
           <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-base font-medium text-white">{t('footer.navigation')}</h3>
+                <h3 className="text-base font-medium text-white">Navigation</h3>
                 <ul role="list" className="mt-4 space-y-4">
                   {navigation.main.map(item => (
                     <li key={item.name}>
                       <Link href={item.href} className="text-base text-gray-300 hover:text-white">
-                        {t(item.name)}
+                        {item.name}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="mt-12 md:mt-0">
-                <h3 className="text-base font-medium text-white">{t('footer.bikes')}</h3>
+                <h3 className="text-base font-medium text-white">Bikes</h3>
                 <ul role="list" className="mt-4 space-y-4">
                   {navigation.bikes.map(item => (
                     <li key={item.name}>
                       <Link href={item.href} className="text-base text-gray-300 hover:text-white">
-                        {t(item.name)}
+                        {item.name}
                       </Link>
                     </li>
                   ))}
@@ -109,7 +106,7 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <h3 className="text-base font-medium text-white">{t('footer.our_locations')}</h3>
+              <h3 className="text-base font-medium text-white">Our Locations</h3>
               <ul role="list" className="mt-4 space-y-6">
                 {locations.map(location => (
                   <li key={location.name} className="text-gray-300">
@@ -141,7 +138,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-gray-700 pt-8">
           <p className="text-base text-gray-400 xl:text-center">
-            &copy; {new Date().getFullYear()} Dhanlaxmi Motor. {t('footer.copyright')}
+            &copy; {new Date().getFullYear()} Dhanlaxmi Motor. All rights reserved.
           </p>
         </div>
       </div>
