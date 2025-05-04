@@ -115,6 +115,28 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  const getCategoryStyles = (category: string) => {
+    switch (category) {
+      case 'hero':
+        return 'bg-blue-100 text-blue-800';
+      case 'harley':
+        return 'bg-orange-100 text-orange-800';
+      default:
+        return 'bg-green-100 text-green-800';
+    }
+  };
+
+  const getCategoryName = (category: string) => {
+    switch (category) {
+      case 'hero':
+        return 'Hero';
+      case 'harley':
+        return 'Harley-Davidson';
+      default:
+        return 'Vida';
+    }
+  };
+
   // Memoized featured bike cards
   const FeaturedBikeCard = useCallback(({ bike }: { bike: typeof FEATURED_BIKES[0] }) => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -127,20 +149,8 @@ export default function Home() {
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="absolute top-4 right-4">
-          <span
-            className={`px-3 py-1 rounded-full text-sm font-medium ${
-              bike.category === 'hero'
-                ? 'bg-blue-100 text-blue-800'
-                : bike.category === 'harley'
-                  ? 'bg-orange-100 text-orange-800'
-                  : 'bg-green-100 text-green-800'
-            }`}
-          >
-            {bike.category === 'hero'
-              ? 'Hero'
-              : bike.category === 'harley'
-                ? 'Harley-Davidson'
-                : 'Vida'}
+          <span className={`px-2 py-1 rounded-full text-sm ${getCategoryStyles(bike.category)}`}>
+            {getCategoryName(bike.category)}
           </span>
         </div>
       </div>
@@ -149,8 +159,8 @@ export default function Home() {
         <p className="text-gray-600 mb-4">{bike.description}</p>
         <div className="flex justify-between items-center">
           <div>
-          <span className="text-2xl font-bold">₹{bike.price.toLocaleString()}</span>
-            {'subsidyPrice' in bike && bike.subsidyPrice && (
+            <span className="text-2xl font-bold">₹{bike.price.toLocaleString()}</span>
+            {bike.subsidyPrice && (
               <div className="text-sm text-green-600">
                 After subsidy: ₹{bike.subsidyPrice.toLocaleString()}
               </div>

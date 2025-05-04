@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DollarSign, Percent, Calendar, TrendingUp, ArrowRight, Building2 } from 'lucide-react';
 import Image from 'next/image';
@@ -159,20 +159,7 @@ export default function FinanceCalculatorPage() {
   const [totalPayment, setTotalPayment] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
-  useEffect(() => {
-    setInterestRate(selectedCompany.interestRates.default);
-    setLoanAmount(
-      Math.max(selectedCompany.minLoanAmount, Math.min(loanAmount, selectedCompany.maxLoanAmount))
-    );
-    setTenure(Math.min(tenure, selectedCompany.maxTenure));
-    calculateEMI();
-  }, [selectedCompany]);
-
-  useEffect(() => {
-    calculateEMI();
-  }, [loanAmount, interestRate, tenure]);
-
-  const calculateEMI = () => {
+  const calculateEMI = useCallback(() => {
     const monthlyRate = interestRate / 12 / 100;
     const emi =
       (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
@@ -183,7 +170,20 @@ export default function FinanceCalculatorPage() {
     setEmi(Math.round(emi));
     setTotalPayment(Math.round(totalPayment));
     setTotalInterest(Math.round(totalInterest));
-  };
+  }, [loanAmount, interestRate, tenure]);
+
+  useEffect(() => {
+    setInterestRate(selectedCompany.interestRates.default);
+    setLoanAmount(prevAmount => 
+      Math.max(selectedCompany.minLoanAmount, Math.min(prevAmount, selectedCompany.maxLoanAmount))
+    );
+    setTenure(prevTenure => Math.min(prevTenure, selectedCompany.maxTenure));
+    calculateEMI();
+  }, [selectedCompany, calculateEMI]);
+
+  useEffect(() => {
+    calculateEMI();
+  }, [calculateEMI]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {

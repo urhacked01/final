@@ -59,16 +59,18 @@ export default function BikeImageSlider({ images, bikeName }: BikeImageSliderPro
 
       {/* Image Indicators */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-            }`}
-            aria-label={`Go to image ${index + 1}`}
-          />
-        ))}
+        {images.map((_, index) => {
+          const isActive = index === currentImageIndex;
+          const indicatorClass = isActive ? 'bg-white' : 'bg-white/50';
+          return (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${indicatorClass}`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          );
+        })}
       </div>
     </div>
   );
