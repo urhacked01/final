@@ -142,31 +142,31 @@ export default function Home() {
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="relative h-64">
         <Image
-          src={bike.image}
-          alt={bike.name}
+          src={bike.image ?? ''}
+          alt={bike.name ?? 'Bike Image'}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="absolute top-4 right-4">
-          <span className={`px-2 py-1 rounded-full text-sm ${getCategoryStyles(bike.category)}`}>
-            {getCategoryName(bike.category)}
+          <span className={`px-2 py-1 rounded-full text-sm ${getCategoryStyles(bike.category ?? '')}`}>
+            {getCategoryName(bike.category ?? '')}
           </span>
         </div>
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2">{bike.name}</h3>
-        <p className="text-gray-600 mb-4">{bike.description}</p>
+        <h3 className="text-xl font-bold mb-2">{bike.name ?? 'Unknown Bike'}</h3>
+        <p className="text-gray-600 mb-4">{bike.description ?? 'No description available.'}</p>
         <div className="flex justify-between items-center">
           <div>
-            <span className="text-2xl font-bold">₹{bike.price.toLocaleString()}</span>
+            <span className="text-2xl font-bold">₹{bike.price?.toLocaleString() ?? 'N/A'}</span>
             {bike.subsidyPrice && (
               <div className="text-sm text-green-600">
                 After subsidy: ₹{bike.subsidyPrice.toLocaleString()}
               </div>
             )}
           </div>
-          <Link href={`/bikes/${bike.id}`} className="btn-primary">
+          <Link href={`/bikes/${bike.id ?? ''}`} className="btn-primary">
             View Details
           </Link>
         </div>
@@ -195,14 +195,16 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative h-64 md:h-96 bg-gray-800 rounded-lg overflow-hidden">
+                {/* eslint-disable security/detect-object-injection */}
                 <Image
-                  src={BIKE_IMAGES[currentImageIndex].image}
-                  alt={BIKE_IMAGES[currentImageIndex].alt}
+                  src={BIKE_IMAGES[currentImageIndex]?.image ?? ''}
+                  alt={BIKE_IMAGES[currentImageIndex]?.alt ?? 'Default Alt Text'}
                   fill
                   className="object-cover transition-opacity duration-500"
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
+                {/* eslint-enable security/detect-object-injection */}
               </div>
             </div>
           </div>

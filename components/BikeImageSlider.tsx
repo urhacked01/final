@@ -22,8 +22,10 @@ export default function BikeImageSlider({ images, bikeName }: BikeImageSliderPro
     <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
       {/* Main Image */}
       <div className="relative w-full h-full">
-        {images[currentImageIndex] ? (
+        {/* eslint-disable-next-line security/detect-object-injection */}
+        {images[currentImageIndex] && currentImageIndex < images.length ? (
           <Image
+            /* eslint-disable-next-line security/detect-object-injection */
             src={images[currentImageIndex]}
             alt={`${bikeName} - Image ${currentImageIndex + 1}`}
             fill
